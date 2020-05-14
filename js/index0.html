@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Hazard Atlas</title>
+  <meta charset="utf-8">
+
+  <!--css file-->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/canvas.css">
+  <link rel="stylesheet" type="text/css" href="css/chart.css">
+    
+<!--Three.js +JQUERY
+  <script type="text/javascript" src="third-party/Three/ThreeWebGL.js"></script>
+  <script type="text/javascript" src="third-party/Three/ThreeExtras.js"></script>
+  <script type="text/javascript" src="third-party/Three/RequestAnimationFrame.js"></script>
+  <script type="text/javascript" src="third-party/Three/Detector.js"></script>
+  <script type="text/javascript" src="third-party/Tween.js"></script>
+  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="head.js"></script>-->
+  
+
+    <!--<script src="../../dist/globe.gl.js"></script>-->
+    <script src="https://unpkg.com/d3"></script>
+    <script src="https://unpkg.com/polished@3.5.2/dist/polished.js"></script>
+  
+    <script src="https://unpkg.com/globe.gl"></script>
+
+  
+ 
+
+
+   
+
+</head>
+
+
+
+<body>
+
+
+  
+
+
+  <div id="globeViz"></div>
+
+  
+  
+  <script>
+    const catColor = d3.scaleOrdinal(d3.schemeCategory10.map(col => polished.transparentize(0.2, col)));
+
+    const getAlt = d => d.elevation * 5e-5;
+
+    const getTooltip = d => `
+      <div style="text-align: center">
+        <div><b>${d.name}</b>, ${d.country}</div>
+        <div>(${d.type})</div>
+        <div>Elevation: <em>${d.elevation}</em>m</div>
+      </div>
+    `;
+
+
+
+    const myGlobe = Globe()
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+      .pointLat('lat')
+      .pointLng('lon')
+      .pointAltitude(getAlt)
+      .pointRadius(0.12)
+      .pointColor(d => catColor(d.type))
+      .pointLabel(getTooltip)
+      .labelLat('lat')
+      .labelLng('lon')
+      .labelAltitude(d => getAlt(d) + 1e-6)
+      .labelDotRadius(0.12)
+      .labelDotOrientation(() => 'bottom')
+      .labelColor(d => catColor(d.type))
+      .labelText('name')
+      .labelSize(0.15)
+      .labelResolution(1)
+      .labelLabel(getTooltip)
+      (document.getElementById('globeViz'));
+  
+
+    fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/world_volcanoes.json').then(res => res.json()).then(volcanoes => {
+      myGlobe.pointsData(volcanoes)
+        .labelsData(volcanoes);
+    });
+
+        // Auto-rotate
+        world.controls().autoRotate = true;
+    world.controls().autoRotateSpeed = 1.8;
+
+  </script>
+
+
+
+
+<div class="iMDkxV ">
+<div class="hsjmJT">
+
+  <section>
+    <div id="dashboardRegion"></div>
+
+    <canvas id="dashboardBarChart"></canvas>
+    <div class="dashboard-component"><div id="dashboardConfirmed" class="dashboard-number confirmed"></div><div class="extra">Volcano</div></div>
+    <div class="dashboard-component"><div id="dashboardRecovered" class="dashboard-number recovered"></div><div class="extra">Earthquake</div></div>
+    <div class="dashboard-component"><div id="dashboardDeaths" class="dashboard-number deaths"></div><div class="extra">Tsunami</div></div>
+
+    <canvas id="dashboardLineChart"></canvas>
+
+    <div class="dashboard-attribution"></div>
+  </section>
+
+  <p >
+    Global Natural Disaster Trend 
+     </p>
+</div>
+
+
+<!--title-->
+
+<div class="nav_00">
+  
+  <a href="/Landing">Hazard Atlas
+  </a>
+
+    <nav class="nav_01">
+      <a href="realtime/src/realtime.html">Harzard Atlas</a>
+      <a href="/Routine">Community</a>
+      <a href="/About">About</a>
+       </nav>
+
+      </div>
+
+<div>
+<div id="currentInfo">
+  <div id="sRun" class="sport">Earthquake</div>
+  <div id="sBike" class="sport">Volcano</div>
+  <div id="sWalk" class="sport">Tsunami</div>
+  <div id="sOther" class="sport">Escape Points</div>
+ <!-- <div id="sAll" class="sport">&nbsp;</div>-->
+</div>
+
+
+<div id="info">
+  Created by Ziyuan Zhu, Litao Yan, Kaihong Gao for <a href="http://vis.csail.mit.edu/classes/6.894/">MIT 6.894</a><span class="bull">&bull;</span> 
+</div>
+
+
+
+<!--chart js-->
+
+<script src="chart/genFrequencyChart.js"></script>
+<script src="chart/bubbleCharts.js"></script>
+
+<!--D3Chart-->
+  <div style="width: 100px; height: 1000px; border: 1px solid black; text-align: center;">
+    <div style="width: 630px; height: 30px">
+      <form id="dimensions">
+        <input type="radio" name="states" id="Earthquake" value="Earthquake"><label>Earthquake</label>
+        <input type="radio" name="states" id="Tsunami" value="Tsunami"><label>Tsunami</label>
+        <input type="radio" name="states" id="Volcano" value="Volcano"><label>Volcano</label>
+      </form>
+    </div>
+    <div id='charts_div' style="width: 630px; height: 410px">
+      <script>				
+        drawRain();
+      </script>
+    </div>
+    
+    <div style="width: 630px; height: 30px">
+      <form id="second_charts">
+        <input type="radio" name="states" id="Death" value="Death"><label>Magnitude vs. Death and Missing</label>
+        <input type="radio" name="states" id="Damages" value="Damages"><label>Magnitude vs. Damages</label>
+      </form>			
+    </div>
+      <script>
+        drawBubbles();
+      </script>
+    <div id='charts_second_div' style="width: 630px; height: 530px">
+      <svg id="chart_mag"></svg>
+    </div>
+  </div>
+
+  </div>
+
+</div>
+ 
+
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Comment Zone</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="../../sidebar/MarkerCluster.css" />
+    <link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css">
+
+    <script src="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7.3/leaflet.js"></script>
+    <script src="../../sidebar/leaflet.markercluster.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
+
+    <link rel="stylesheet" href="../src/L.Control.Sidebar.css" />
+
+    <link rel="stylesheet" href="new.css" />
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+
+    <!--[if lte IE 8]><link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" /><![endif]-->
+
+    <style type="text/css"></style>
+
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    html, body, #map {
+        height: 100%;
+    }
+
+    .lorem {
+        font-style: italic;
+        color: #AAA;
+    }
+    </style>
+</head>
+
+<body>
+
+    <br>
+    <br>
+  
+  <div class="nav_00">
+  
+    <a href="/Landing">Hazard Atlas
+    </a>
+
+      <nav class="nav_01">
+        <a href="/index.html">Harzard Atlas</a>
+        <a href="index.html">Community</a>
+        <a href="/landing-page/index.html">About</a>
+         </nav>
+
+        </div>
+
+
+
+
+
+
+    <div id="sidebar" style="display: none;">
+        <h1 style="text-align:center; font-size: 12px;">-- Feel Free to Share Your Opinions or Experiences --</h1>
+
+        <div id="customRendererContent" class="sidebar">
+
+        </div>
+
+    </div>
+
+
+    <div id="map"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="customModalBody">
+                    <form class="border-bottom">
+                        <div class="form-group">
+                            <label for="customUsername">User ID</label>
+                            <input type="text" class="form-control" id="customUsername" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="customComment">Comments</label>
+                            <textarea class="form-control" id="customComment" style="resize: none;" rows="3"></textarea>
+                        </div>
+                        <div class="form-group text-right">
+                            <button id="customPublish" type="button" class="btn btn-primary custom-publish">Post</button>
+                        </div>
+                    </form>
+
+                    <ul class="list-group list-group-flush" id="customCommentLists"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/bootstrap/lodash.min.js"></script>
+    <script src="../../js/bootstrap/moment.min.js"></script>
+    <script src="../../js/bootstrap/store2.min.js"></script>
+
+    <script src="../../js/bootstrap/jquery.min.js"></script>
+    <script src="../../js/bootstrap/popper.min.js"></script>
+    <script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="../src/L.Control.Sidebar.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+
+    <script>
+
+        var url1 = 'https://raw.githubusercontent.com/KaiArch2014/6.894a4/master/src/TsunamisClean.json';
+       
+        var url2 = 'https://raw.githubusercontent.com/KaiArch2014/6.894a4/master/src/volcano_eruption.json';
+
+        var url3 = 'https://raw.githubusercontent.com/KaiArch2014/6.894a4/master/src/earthquake7.json';
+
+        var map = L.map('map').setView([0, 0], 3);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/kaitech2019/cka61w2ri05821ir5pssjzlp9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoia2FpdGVjaDIwMTkiLCJhIjoiY2thNjAwZm9mMDJrMjJybW5raTVmM2F6ciJ9.jqGgMZElMTFKvwIDYl_QhQ', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 20,
+            tileSize: 512,
+            zoomOffset: -1,
+        }).addTo(map);
+
+//Tsunamis
+        var smallIcon1 = new L.Icon({
+            iconUrl: '../src/tsunami.svg',
+            iconRetinaUrl: '../src/tsunami.svg',
+            iconSize:    [40, 64],
+            iconAnchor:  [19, 49],
+            popupAnchor: [4, -40],
+            shadowSize:  [41, 41]
+        });
+        
+        $.getJSON(url1, function(data) {
+            console.log(data);
+
+            L.geoJson(data, {
+            pointToLayer: function(feature, latlng) {
+                // console.log(latlng, feature);
+                return L.marker(latlng, {
+                icon: smallIcon1
+                });
+            },
+            onEachFeature: onEachFeature
+            }).addTo(map);
+        });
+
+//volcano_eruption
+        var smallIcon2 = new L.Icon({
+            iconUrl: '../src/volcano.svg',
+            iconRetinaUrl: '../src/volcano.svg',
+            iconSize:    [40, 64],
+            iconAnchor:  [19, 49],
+            popupAnchor: [4, -40],
+            shadowSize:  [41, 41]
+        });
+
+        $.getJSON(url2, function(data) {
+            console.log(data);
+
+            L.geoJson(data, {
+            pointToLayer: function(feature, latlng) {
+                // console.log(latlng, feature);
+                return L.marker(latlng, {
+                icon: smallIcon2
+                });
+            },
+            onEachFeature: onEachFeature
+            }).addTo(map);
+        });
+
+//earthquake7
+        var smallIcon3 = new L.Icon({
+            iconUrl: '../src/earthquake.svg',
+            iconRetinaUrl: '../src/earthquake.svg',
+            iconSize:    [40, 64],
+            iconAnchor:  [19, 49],
+            popupAnchor: [4, -40],
+            shadowSize:  [41, 41]
+        });
+
+        $.getJSON(url3, function(data) {
+            console.log(data);
+
+            L.geoJson(data, {
+            pointToLayer: function(feature, latlng) {
+                // console.log(latlng, feature);
+                return L.marker(latlng, {
+                icon: smallIcon3
+                });
+            },
+            onEachFeature: onEachFeature
+            }).addTo(map);
+        });
+
+
+        function onEachFeature(feature, layer) {
+            console.log(feature);
+            layer.bindPopup(feature.properties.Time);
+            layer.on('mouseover', function (e) {
+                this.openPopup();
+            });
+            layer.on('mouseout', function (e) {
+                this.closePopup();
+            });
+            layer.on('click', function () {
+                customRenderer(feature)
+
+            sidebar.toggle();
+            });
+            layer.on('click', function(e) {
+
+            });
+
+        }
+
+        $('#sidebar').show()
+        var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'right'
+        });
+        map.addControl(sidebar);
+
+
+        setTimeout(function () {
+            sidebar.hide();
+        }, 500);
+
+        // var marker = L.marker([lat, lng]).addTo(map).on('click', function () {
+        //     sidebar.toggle();
+        // });
+
+        map.on('click', function () {
+            sidebar.hide();
+        })
+
+        sidebar.on('show', function () {
+            customLayerShow()
+            console.log('Sidebar will be visible.');
+        });
+
+        sidebar.on('shown', function () {
+            console.log('Sidebar is visible.');
+        });
+
+        sidebar.on('hide', function () {
+            console.log('Sidebar will be hidden.');
+        });
+
+        sidebar.on('hidden', function () {
+            customLayerHidden()
+            console.log('Sidebar is hidden.');
+        });
+
+        L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
+            console.log('Close button clicked.');
+        });
+
+
+    </script>
+
+    <script src="../../js/bootstrap/custom.js"></script>
+
+    
+
+
+</body>
+</html>
