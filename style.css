@@ -1,0 +1,235 @@
+html {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #000000 url('imgs/loading.gif') center center no-repeat;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    height: 100%;
+  }
+
+  #info {
+    background-color: rgba(0,0,0,0.3);
+    font-size: 11px;
+    position: absolute;
+    bottom: 5px;
+    border-radius: 3px;
+    right: 10px;
+    padding: 3px 10px 0 10px;
+  }
+
+  #currentInfo {
+    width: 270px;
+    position: absolute;
+    left: 20px;
+    top: 80px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    padding: 10px;
+  }
+
+  a {
+    color: #aaa;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .bull {
+    padding: 0 5px;
+    color: #555;
+  }
+
+  #title {
+    position: absolute;
+    top: 20px;
+    min-width: 270px;
+    left: 20px;
+    border-radius: 3px;
+    font: 27px serif;
+    padding: 10px;
+  }
+
+  .sport {
+    display: none;
+    font: 12px sans-serif;
+    line-height: 26px;
+    height: 15px;
+    color: rgba(255, 255, 255, 0.4);
+    padding-left: 7px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .sport:hover, .sport.active {
+    font-size: 15px;
+    color: rgb(1, 99, 184);
+  }
+
+  #ce span {
+    display: none;
+  }
+
+  #ce {
+    width: 107px;
+    height: 55px;
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    background: url('imgs/ce.png');
+  }
+
+  #noWebGL {
+    visibility: hidden;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    padding: 3px;
+
+    color: #FF8248;
+    text-align: center;
+
+    border: 2px dotted #B32000;
+    border-radius: 5px;
+  }
+
+ 
+
+
+  .jjj {
+    width:30%;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    box-shadow: rgba(255, 255, 255, 0) 5px 0px 78px -6px;
+    display: flex;
+    flex-direction: column;
+    background:rgb(0, 0, 0);
+}
+
+
+
+.hsjmJT {
+    font-family: Roboto;
+    font-size: 25px;
+    font-weight: 300;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15%;
+    display: inherit;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 400ms ease 0s;
+}
+
+.hsjmJL{
+    font-family: Roboto;
+    font-size: 8px;
+    font-weight: 100;
+    color: rgb(167, 164, 164);
+    margin-top: 15px;
+    margin-left: 1%;
+    display: inherit;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 400ms ease 0s;
+}
+
+
+
+.nav_00 {
+    position: fixed;
+    top: 2px;
+    min-width: 270px;
+    left: 10px;
+    border-radius: 3px;
+    font: 25px futura;
+    padding: 10px;
+  }
+
+  .nav_01 {
+    position: fixed;
+    top: 5px;
+    min-width: 300px;
+    left: 1300px;
+    right: 0px;
+    border-radius: 3px;
+    font: 15px futura;
+    padding: 10px;
+  }
+
+
+.nav_03 {
+
+  font: 20px futura;
+ 
+}
+
+  #d3_canvas {
+    position: absolute;
+    top: 20px;
+    min-width: 270px;
+    left: 10px;
+    border-radius: 3px;
+    font: 15px;
+    font-family: Roboto;
+    padding: 10px;
+    opacity: 0.5;
+  }
+
+
+
+  .hqgePM {
+    height: 50px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.97) 0px 11px 40px -11px inset;
+    z-index: 2;
+    background: rgb(4, 4, 58);
+    transition: all 2000ms ease 0s;
+}
+
+
+
+.canvasclass   { 
+    width: 95%;
+    left: 5%;
+    height: 80%;
+    position: absolute;
+    bottom: 7%;
+}
+
+
+
+#canvas02 { 
+    position: fixed;
+    top: 20px;
+    max-width: 650px;
+    left: 10px;
+    font: 15px;
+    font-family: Roboto;
+    padding: 10px;
+    opacity: 0.5;
+}
+
+
+section {
+  width:40%;
+  height: 90%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 30px 30px;
+  background-color: rgb(0, 0, 0);
+  max-width: 300px;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Hazard Atlas</title>
+  <meta charset="utf-8">
+
+  <!--css file-->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/canvas.css">
+  <link rel="stylesheet" type="text/css" href="css/chart.css">
+  <link rel="stylesheet" type="text/css" href='style.css'>
+    
+<!--Three.js +JQUERY-->
+  <script type="text/javascript" src="third-party/Three/ThreeWebGL.js"></script>
+  <script type="text/javascript" src="third-party/Three/ThreeExtras.js"></script>
+  <script type="text/javascript" src="third-party/Three/RequestAnimationFrame.js"></script>
+  <script type="text/javascript" src="third-party/Three/Detector.js"></script>
+  <script type="text/javascript" src="third-party/Tween.js"></script>
+  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="head.js"></script>
+  
+
+    <!--<script src="../../dist/globe.gl.js"></script>-->
+    <script src="https://unpkg.com/d3"></script>
+    <script src="https://unpkg.com/polished@3.5.2/dist/polished.js"></script>
+  
+    <script src="https://unpkg.com/globe.gl"></script>
+
+
+
+<!--D3.js-->
+<script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+
+
+<!--chart js-->
+<script src="https://d3js.org/d3.v3.js"></script>
+<script src="chart/genFrequencyChart.js"></script>
+<script src="chart/bubbleCharts.js"></script>
+
+</head>
+
+<body>
+
+  <div >
+
+
+    <div id="d3_canvas">
+      <p class="d3_00"> Global Natural Disaster Trend </p>
+      </div>
+    
+
+
+ <div id="container">
+  </div>
+
+<section>
+  <div class='nav_03'>
+<p>Global Nature Disaster Trend</p></div>
+  
+  <div style="width: 0px; height: 1000px; border: 1px solid black; text-align: center;">
+    <div style="width: 300px; height: 30px">
+      <form id="dimensions">
+        <input type="radio" name="states" id="Earthquake" value="Earthquake"><label>Earthquake</label>
+        <input type="radio" name="states" id="Tsunami" value="Tsunami"><label>Tsunami</label>
+        <input type="radio" name="states" id="Volcano" value="Volcano"><label>Volcano</label>
+      </form>
+    </div>
+    <div id='charts_div' style="width: 630px; height: 400px">
+      <script>				
+        drawRain();
+      </script>
+    </div>
+    
+    <div style="width: 400px; height: 30px">
+      <form id="second_charts">
+        <input type="radio" name="states" id="Death" value="Death"><label>Magnitude vs. Death and Missing</label>
+        <input type="radio" name="states" id="Damages" value="Damages"><label>Magnitude vs. Damages</label>
+      </form>			
+    </div>
+      <script>
+        drawBubbles();
+      </script>
+    <div id='charts_second_div' style="width: 630px; height: 400px">
+      <svg id="chart_mag"></svg>
+    </div>
+  </div>
+
+  
+  </section>
+
+  <!--D3Chart-->
+
+  <div class="iMDkx">
+
+
+</div>
+ 
+
+
+<!--title-->
+
+  <div class="nav_00">
+  
+    <a href="/Landing">Hazard Atlas
+    </a>
+
+      <nav class="nav_01">
+        <a href="index.html">Harzard Atlas</a>
+        <a href="events/sidebar/examples/index.html">Community</a>
+        <a href="landing-page/index.html">About</a>
+         </nav>
+
+        </div>
+
+<div>
+  <div id="currentInfo">
+    <div id="sRun" class="sport">Earthquake</div>
+    <div id="sBike" class="sport">Volcano</div>
+    <div id="sWalk" class="sport">Tsunami</div>
+    <!--<div id="sOther" class="sport">Escape Points</div>-->
+   <!-- <div id="sAll" class="sport">&nbsp;</div>-->
+  </div>
+
+
+  <div id="info">
+    Created by Ziyuan Zhu, Litao Yan, Kaihong Gao for <a href="http://vis.csail.mit.edu/classes/6.894/">MIT 6.894</a><span class="bull">&bull;</span> 
+</span> 
+  </div>
+
+</div>
+
+
+
+
+<!--if the user have no WEBGL access-->
+  <div id="noWebGL">
+    <h2>Sorry</h2>
+    <p>Your browser either disabled usage of WebGL or it doesn't support WebGL at all.</p>
+    <p>Perhaps a couple of screenshots could be of some comfort:</p>
+    <p>
+      <a href="imgs/screenshot/endo-globe-1.png" target="_blank"><img src="imgs/endo-globe-1.png"</a>
+      <a href="imgs/screenshot/endo-globe-2.png" target="_blank"><img src="imgs/endo-globe-2.png"</a>
+      <a href="imgs/screenshot/endo-globe-3.png" target="_blank"><img src="imgs/endo-globe-3.png"</a>
+      <a href="imgs/screenshot/endo-globe-4.png" target="_blank"><img src="imgs/endo-globe-4.png"</a>
+    </p>
+  </div>
+
+
+  <!--FORK ME
+  <a href="https://github.com/zy-zhu/Hazard_Atlas" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99;" src="imgs/forkme.png" alt="Fork me on GitHub"></a>
+-->
+
+
+</body>
+</html>
